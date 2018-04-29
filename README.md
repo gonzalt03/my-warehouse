@@ -10,6 +10,7 @@ Imagine that a freight company wishes to have a solution allowing it to make its
 ### Prerequisites
 - Java 8 version
 - Maven
+- PostgreSQL
 - Change informations in `application.properties` with your configuration :
 
 
