@@ -3,6 +3,7 @@ package fr.onefox.mywarehouse.domain;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -83,8 +84,9 @@ public class Transaction {
     private Double totalRefAmountWeight;
 
     @NotNull
+    @Length(max = 1, min = 1)
     @ApiModelProperty(required = true, value = "X")
-    private char customsStatus;
+    private String customsStatus;
 
     @ApiModelProperty(required = false, value = "T1")
     private String customsDocType;

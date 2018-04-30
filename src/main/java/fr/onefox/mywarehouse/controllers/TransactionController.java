@@ -7,9 +7,12 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.validation.Valid;
 
 
 @Controller
@@ -39,7 +42,10 @@ public class TransactionController {
      * @throws Exception
      */
     @RequestMapping(value = "/transactions", method = RequestMethod.POST)
-    public ResponseEntity addTransaction(@ApiParam("transaction") Transaction transaction) throws Exception {
+    public ResponseEntity addTransaction(@ApiParam("transaction") @Valid Transaction transaction, BindingResult bindingResult) throws Exception {
+        if (bindingResult.hasErrors()) {
+            return ResponseEntity.badRequest().body(bindingResult.getAllErrors());
+        }
         return ResponseEntity.ok().body(transactionService.insertTransaction(transaction));
     }
 

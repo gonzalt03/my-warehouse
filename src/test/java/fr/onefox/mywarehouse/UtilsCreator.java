@@ -21,7 +21,7 @@ public class UtilsCreator {
     public static final String DESCRIPTION = "ELECTRONICS";
     public static final Double TOTAL_REF_QUANTITY = 12D;
     public static final Double TOTAL_REF_WEIGHT = 345D;
-    public static final char CUSTOMS_STATUS = 'X';
+    public static final String CUSTOMS_STATUS = "X";
     public static final String CUSTOMS_DOC_TYPE = "T1";
     public static final String CUSTOMS_DOC_REF = "098765432";
     public static final String USER = "Thomas";
