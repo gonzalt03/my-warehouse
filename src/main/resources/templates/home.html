@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <title>Home</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -11,9 +11,9 @@
 <body>
 
 <main role="main" class="container">
-    <h1 class="mt-5">My Warehouse</h1>
-    <p class="lead">Small tracking application for a warehouse with a REST API</p>
-    <p>📕 Use <a href="/swagger-ui.html">SWAGGER documentation</a></p>
+    <h1 class="mt-5" th:text="#{Home.title}"></h1>
+    <p class="lead" th:text="#{Home.slogan}"></p>
+    <p><span th:text="#{Home.swaggerDoc1}"></span> <a href="/swagger-ui.html" th:text="#{Home.swaggerDoc2}"><</a></p>
 </main>
 
 </body>

@@ -22,6 +22,7 @@ public class TransactionService {
     private static final String QUANTITY_AND_TOTAL_WEIGHT_CONSTRAINTS = "The quantity and total weight of the reference must each be greater than or equal to the quantity and weight of the goods of the movement.";
     private static final String DECLARE_AN_EXIT_CONSTRAINTS = "We can not declare an exit on a merchandise reference whose entry we have not declared";
     private static final String EMPTY_CUSTOMS_DOC_CONSTRAINTS = "Missing the exit document";
+    private static final int AWB_CONDITION_REFCODE_LENGTH = 11;
 
     @Autowired
     private TransactionRepositoryService transactionRepositoryService;
@@ -42,7 +43,7 @@ public class TransactionService {
     public Transaction insertTransaction(Transaction transaction) throws Exception {
         // Verification of business constraints
         if (AWB.equals(transaction.getRefType())
-                && (transaction.getRefCode().length() != 11 || !StringUtils.isNumeric(transaction.getRefCode()))) {
+                && (transaction.getRefCode().length() != AWB_CONDITION_REFCODE_LENGTH || !StringUtils.isNumeric(transaction.getRefCode()))) {
             log.error(AWB_CONSTRAINTS);
             throw new Exception(AWB_CONSTRAINTS);
         }

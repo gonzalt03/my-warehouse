@@ -9,6 +9,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import java.io.File;
 import java.io.IOException;
+import java.text.MessageFormat;
 
 @Slf4j
 @Service
@@ -26,7 +27,7 @@ public class ExportXmlService {
      * @return
      */
     public File export(String prefixFile, Object classToExport) throws Exception {
-        log.info("Export XML");
+        log.info(MessageFormat.format("Export XML - Prefix : {0}", prefixFile));
 
         File file;
         try {

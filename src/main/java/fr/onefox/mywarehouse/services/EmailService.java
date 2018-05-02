@@ -19,6 +19,8 @@ import java.text.MessageFormat;
 @Service
 public class EmailService {
 
+    private static final String CAN_NOT_SEND_EMAIL_FOR_THE_MOMENT = "Can not send email for the moment.";
+
     @Autowired
     private JavaMailSender emailSender;
 
@@ -33,20 +35,25 @@ public class EmailService {
      *
      * @param transaction
      * @param attachement
-     * @throws MessagingException
+     * @throws Exception
      */
-    public void sendTransactionEmail(Transaction transaction, File attachement) throws MessagingException {
-        log.info("Send email");
+    public void sendTransactionEmail(Transaction transaction, File attachement) throws Exception {
+        log.info(MessageFormat.format("Send email - ID {0} - {1} - To : {2}", transaction.get_id(), transaction.getType(), emailFrom));
 
         MimeMessage message = emailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message, true);
-
-        helper.setSubject("New transaction 📦");
-        helper.setText(MessageFormat.format("New transaction type : {0}.\nID: {1}\n\nMore information in attachment.", transaction.getType(), transaction.get_id()));
-        helper.setFrom(MessageFormat.format("My Warehouse 🚀 <{0}>", emailFrom));
-        helper.setTo(emailFrom);
-
-        helper.addAttachment(transaction.get_id() + "." + FilenameUtils.getExtension(attachement.getName()), new FileSystemResource(attachement.getAbsolutePath()));
+        try {
+            MimeMessageHelper helper = null;
+            helper = new MimeMessageHelper(message, true);
+            helper.setSubject("New transaction 📦");
+            helper.setText(MessageFormat.format("New transaction type : {0}.\nID: {1}\n\nMore information in attachment.", transaction.getType(), transaction.get_id()));
+            helper.setFrom(MessageFormat.format("My Warehouse 🚀 <{0}>", emailFrom));
+            helper.setTo(emailFrom);
+            helper.addAttachment(transaction.get_id() + "." + FilenameUtils.getExtension(attachement.getName()), new FileSystemResource(attachement.getAbsolutePath()));
+        } catch (MessagingException e) {
+            e.printStackTrace();
+            log.error(CAN_NOT_SEND_EMAIL_FOR_THE_MOMENT);
+            throw new Exception(CAN_NOT_SEND_EMAIL_FOR_THE_MOMENT);
+        }
 
         emailSender.send(message);
     }

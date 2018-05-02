@@ -22,9 +22,11 @@ public class TransactionServiceTest {
 
     private Transaction transaction;
 
+    // Use with @InjectMocks
     @Mock
     EmailService emailService;
 
+    // Use with @InjectMocks
     @Mock
     ExportXmlService exportXmlService;
 
