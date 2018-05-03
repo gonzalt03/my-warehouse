@@ -63,4 +63,4 @@ With this tool, you can send examples to create or retrieve movements in your wa
 
 - *More unit tests analyzing the sending of emails*
 
-- *Create a custom exception, to avoid using the default spring exception.*
+- *Create a custom exception, to avoid using the default spring exception.* - Use I18N to understand return errors in the sending language. 
